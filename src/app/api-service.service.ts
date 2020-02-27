@@ -42,6 +42,10 @@ export class ApiServiceService {
     
     postDataAuth(url, data) {
       this.getAuthToken();
+      let checkToken  = this.sendToken();
+      if(!checkToken){
+        this.route.navigate(['/login']);
+      }
       const httpOptions = {
         headers: new HttpHeaders({
           // 'Content-Type':  'application/json',
@@ -53,6 +57,10 @@ export class ApiServiceService {
     }
     getDataAuth(url) {
       this.getAuthToken();
+      let checkToken  = this.sendToken();
+      if(!checkToken){
+        this.route.navigate(['/login']);
+      }
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',

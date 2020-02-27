@@ -8,10 +8,11 @@ import { ApiServiceService } from './../../api-service.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  time;
   constructor(private route: Router,  private api: ApiServiceService, ) { }
 
   ngOnInit() {
+    this.time  = new Date();
     this.api.checkNotLogin();
    
   }

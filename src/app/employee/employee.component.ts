@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ApiServiceService } from './../api-service.service';
 import { ToastrService } from 'ngx-toastr';
-
-
 
 @Component({
   selector: 'app-employee',
@@ -17,19 +15,18 @@ export class EmployeeComponent implements OnInit {
   departments;
   employee;
   designations;
-  status;
   formtype = 'add';
   url = 'add-employee';
 
   constructor(private formBuilder: FormBuilder,private apiService: ApiServiceService, private toastr: ToastrService) {
     this.employeeForm = this.formBuilder.group({
-      fname: ['', Validators.required],
-      lname: ['', Validators.required],
-      department: ['', Validators.required],
-      designation: ['', Validators.required],
-      email: [''],
-      txtphone: [''],
-      password: ['', Validators.required],
+      fname: '',
+      lname: '',
+      department: '',
+      designation: '',
+      email: '',
+      txtphone: '',
+      password: '',
      
     });
 
@@ -84,15 +81,6 @@ export class EmployeeComponent implements OnInit {
   }
 
   onSubmit(customerData) {
-    if(this.employeeForm.invalid){
-      console.log(this.employeeForm);
-      
-      this.status = this.employeeForm;
-      console.log(this.employeeForm.value);
-      return;
-
-    }
-    this.status = '';
     var data = {fname: customerData.fname ,
       user_id: '',
       lname: customerData.lname,
@@ -133,12 +121,16 @@ export class EmployeeComponent implements OnInit {
   }
 
   editEmployee(employeeid){
+    console.log('eee', employeeid);
+    
     this.employee =  this.employees.find(o => o.id ==employeeid);
+    console.log(this.employee);
+    
     this.employeeForm.setValue({
       fname: this.employee.fname,
       lname: this.employee.lname,
       department: this.employee.department,
-      designation: this.employee.designation,
+      designation: this.employee.designation_id,
       email: this.employee.email,
       txtphone: this.employee.phone_no,
       password: '12345678'

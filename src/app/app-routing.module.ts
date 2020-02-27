@@ -13,7 +13,8 @@ import { SingleProjectComponent } from './single-project/single-project.componen
 import { SingleTaskComponent } from './single-task/single-task.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { GuestLayoutComponent } from './guest-layout/guest-layout.component';
-
+import {AuthGuard} from './Guards/auth.guard';
+import { GuestGuard  } from './Guards/guest.guard';
 
 const routes: Routes = [
   {
@@ -36,14 +37,16 @@ const routes: Routes = [
     {path : 'add-project', component: AddProjectComponent},
     {path : 'single-project/:id', component: SingleProjectComponent},
     {path : 'single-task/:id', component: SingleTaskComponent},
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: '',
     component: GuestLayoutComponent,
     children: [
       {path : 'login', component: LoginFormComponent},
-    ]
+    ],
+    canActivate: [GuestGuard]
   }
   
 ];
